@@ -14,8 +14,7 @@
     "test": "jasminetea --cover --report --lint",
 
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
-    "compile": "coffee --bare --compile index.coffee",
-    "postcompile": "coffee --output lib --bare --compile src",
+    "compile": "coffee --output lib --bare --compile src",
 
     "localhost": "zuul test/api.spec --ui jasmine2 --local 59798 --open",
     "test-cloud": "zuul test/api.spec",

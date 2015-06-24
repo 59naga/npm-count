@@ -1,6 +1,6 @@
 # Dependencies
 npmCount= require '../src'
-npmCount.debug = yes if process.env.DEBUG or window?
+npmCount.debug = yes if process.env.DEBUG
 moment= require 'moment'
 
 # Environment

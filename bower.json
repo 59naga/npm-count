@@ -24,7 +24,7 @@
       "npm-count.min.js",
       "--source-map",
       "npm-count.min.js.map"
-     ]
+    ]
   },
 
   "ignore": [
@@ -41,5 +41,5 @@
   ],
   "homepage": "https://github.com/59naga/npm-count",
 
-  "license": "MIT",
+  "license": "MIT"
 }
