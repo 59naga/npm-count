@@ -1,0 +1,71 @@
+{
+  "name": "npm-count",
+  "version": "0.0.0-alpha",
+  "description": "Fetch the npm stats for easy calculation.",
+
+  "main": "lib/index.js",
+  "browser": {
+    "./src": false,
+    "request": false
+  },
+
+  "scripts": {
+    "start": "jasminetea --watch",
+    "test": "jasminetea --cover --report --lint",
+
+    "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
+    "compile": "coffee --bare --compile index.coffee",
+    "postcompile": "coffee --output lib --bare --compile src",
+
+    "localhost": "zuul test/api.spec --ui jasmine2 --local 59798 --open",
+    "test-cloud": "zuul test/api.spec",
+
+    "prebuild": "$(opc bower opc-scripts.build) | exorcist $(opc bower name).js.map > $(opc bower name).js",
+    "build": "$(opc bower opc-scripts.uglify)",
+    "postbuild": "rm $(opc bower name).js $(opc bower name).js.map && wc -c $(opc bower main)",
+    "update": "git tag v$(opc package version) && git push --tags"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm test"
+    }
+  },
+
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "moment": "^2.10.3",
+    "request": "^2.58.0"
+  },
+  "devDependencies": {
+    "ghooks": "^0.3.2",
+    "jasminetea": "^0.2.1",
+    
+    "xhr": "^2.0.2",
+
+    "browserify": "^10.2.4",
+    "coffeeify": "^1.1.0",
+    "exorcist": "^0.4.0",
+    "object-parser-cli": "0.0.1-alpha.1",
+    "uglify-js": "^2.4.23"
+  },
+  "extraDependencies": {
+    "zuul": "^3.0.0"
+  },
+  
+  "keywords": [
+    "npm",
+    "stat",
+    "download",
+    "graph"
+  ],
+  "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/59naga/npm-count.git"
+  },
+  "bugs": {
+    "url": "https://github.com/59naga/npm-count/issues"
+  },
+  "homepage": "https://github.com/59naga/npm-count#readme"
+}
