@@ -1,6 +1,6 @@
 {
   "name": "npm-count",
-  "version": "0.0.0-beta.2",
+  "version": "0.0.0-beta.3",
   "description": "Fetch the npm stats for easy calculation.",
 
   "main": "lib/index.js",

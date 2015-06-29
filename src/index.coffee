@@ -154,5 +154,8 @@ class NpmCount
 
         resolve days
 
+  last: (count)->
+    count?.days?.slice?(-1)?[0]
+
 module.exports= new NpmCount
 module.exports.NpmCount= NpmCount

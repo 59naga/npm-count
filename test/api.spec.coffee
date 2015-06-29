@@ -5,7 +5,8 @@ moment= require 'moment'
 
 # Environment
 jasmine.DEFAULT_TIMEOUT_INTERVAL= 120000
-packages= require './fixture'
+packages= require './fixtures/packages'# substack's package names
+user= require './fixtures/user'# 59naga's package count
 
 # Specs
 describe 'npmCount',->
@@ -110,3 +111,17 @@ describe 'npmCount',->
         .then (packages)->
           expect(packages.length).toBeGreaterThan 20
           done()
+
+    describe '.last',->
+      it 'Compare to last-day of npm/download-counts',(done)->
+        npmCount.fetchDays()
+        .then (days)->
+          expect(days[0]).toBeGreaterThan npmCount.last user
+
+          done()
+      
+      it 'Otherwise',->
+        expect(npmCount.last null).toBe undefined
+        expect(npmCount.last [null]).toBe undefined
+        expect(npmCount.last {days:[]}).toBe undefined
+        expect(npmCount.last {days:['foo','bar','baz']}).toBe 'baz'

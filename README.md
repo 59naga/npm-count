@@ -132,6 +132,37 @@ npmCount.fetchDownloads('browserify','all')
 
 > [The past than 2012-10-22 is nothing](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
 
+## `.last`(count) -> day
+
+Get the last day of `count`.
+
+```js
+var count= {
+   "days": [
+     "2012-10-22",
+     "2015-06-23"
+   ],
+   "packages": {
+     "browserify": [
+       40,
+       54778
+     ]
+   },
+   "total": {
+     "days": [
+       40,
+       54778
+     ],
+     "packages": {
+       "browserify": 12991291
+     }
+   }
+ };
+
+ npmCount.last(count);
+ // -> "2015-06-23"
+ ```
+
 # API for Node.js
 
 ## `.fetch`(owner,period='last-day') -> Promise(count)
