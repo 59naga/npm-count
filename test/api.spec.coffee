@@ -68,7 +68,7 @@ describe 'npmCount',->
 
     it 'all',(done)->
       day= 60*60*24*1000
-      count= Math.ceil((moment.utc() - moment.utc('2012-10-22')) / day)
+      count= Math.floor((moment.utc() - moment.utc('2012-10-22')) / day)
 
       npmCount.fetchDays 'all'
       .then (days)->
@@ -88,7 +88,7 @@ describe 'npmCount',->
             expect(days.length).toBe count.days.length
 
           day= 60*60*24*1000
-          dayCount= Math.ceil((moment.utc() - moment.utc('2012-10-22')) / day)
+          dayCount= Math.floor((moment.utc() - moment.utc('2012-10-22')) / day)
           expect(count.days.length).toBe dayCount
 
           done()

@@ -84,7 +84,7 @@ class NpmCount
   # See: https://github.com/npm/download-counts
   fetchDownloads: (names=[],period='last-day')->
     names= names.split(',') if typeof names is 'string'
-    period= '2012-10-22:'+moment.utc().format format if period is 'all'
+    period= '2012-10-22:'+moment.utc().add(-1,'days').format format if period is 'all'
     url= @api.fetchDownloads
 
     console.log url if @debug
@@ -132,7 +132,7 @@ class NpmCount
             resolve {days,packages,total}
 
   fetchDays: (period='last-day')->
-    period= '2012-10-22:'+moment.utc().format format if period is 'all'
+    period= '2012-10-22:'+moment.utc().add(-1,'days').format format if period is 'all'
 
     uri= util.format @api.fetchDays,period
     console.log uri if @debug
