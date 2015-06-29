@@ -19,8 +19,8 @@ describe 'npmCount',->
     it 'browserify,glob',(done)->
       npmCount.fetchDownloads 'browserify,glob'
       .then (count)->
-        expect(count.packages.browserify[0]).toBeGreaterThan 50000
-        expect(count.packages.glob[0]).toBeGreaterThan 50000
+        expect(count.packages.browserify[0]).toBeGreaterThan 10000
+        expect(count.packages.glob[0]).toBeGreaterThan 10000
         done()
 
     it 'browserify,glob,chokidar in last-week',(done)->
@@ -80,7 +80,7 @@ describe 'npmCount',->
   futureDescribe 'Node.js only',->
     describe 'fetch',->
       it 'Get the downloads of grand total',(done)->
-        npmCount.fetch '59naga','all'
+        npmCount.fetch 'isaacs','all'
         .then (count)->
           expect(Object.keys(count.packages).length).toBeGreaterThan 20
 

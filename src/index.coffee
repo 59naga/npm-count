@@ -4,6 +4,7 @@ request= unless window? then require 'request' else require 'xhr'
 moment= require 'moment'
 
 util= require 'util'
+querystring= require 'querystring'
 
 # Private
 format= 'YYYY-MM-DD'
@@ -103,7 +104,8 @@ class NpmCount
         process.nextTick ->
           nextOffset 0
         nextOffset= (i)=>
-          bulk= names.slice(i*step,i*step+step).join ','
+          bulkNames= names.slice i*step,i*step+step
+          bulk= (querystring.escape name for name in bulkNames).join ','
 
           if bulk isnt ''
             uri= util.format url,period,bulk
