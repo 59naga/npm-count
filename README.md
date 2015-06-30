@@ -26,7 +26,7 @@ $ bower install npm-count --save
 </script>
 ```
 
-# API
+# Cross-platform API
 
 ## `.fetchDownloads`(packages,period='last-day') -> Promise(count)
 
@@ -163,7 +163,7 @@ var count= {
  // -> "2015-06-23"
  ```
 
-# API for Node.js
+# Node.js API
 
 ## `.fetch`(owner,period='last-day') -> Promise(count)
 
@@ -202,6 +202,58 @@ npmCount.fetch('substack')
 //     }
 //   }
 // }
+```
+
+## `.fetchPackages`(owner,flatten=true) -> Promise(packages)
+
+Fetch the package informations using [informal API](https://www.npmjs.com/profile/substack/packages?offset=0).
+
+```js
+npmCount.fetchPackages('substack')
+.then(function(names){
+  console.log(names);
+});
+// ["accountdown",...,"zygote"]
+
+npmCount.fetchPackages('substack',false)
+.then(function(packages){
+  console.log(packages);
+});
+// [
+//   {
+//     "bugs": {
+//       "email": null,
+//       "url": "https://github.com/substack/accountdown/issues"
+//     },
+//     "versions": {},
+//     "version": "4.1.0",
+//     "homepage": "https://github.com/substack/accountdown",
+//     "dist-tags": {},
+//     "access": "public",
+//     "description": "persistent accounts backed to leveldb",
+//     "name": "accountdown"
+//   },
+//   {
+//     "name": "zygote",
+//     "access": "public",
+//     "version": "0.0.1",
+//     "versions": {},
+//     "homepage": null,
+//     "dist-tags": {},
+//     "description": "cellular differentiation for seaport clusters"
+//   }
+// ]
+```
+
+# TEST & DEBUG
+```bash
+git clone https://github.com/59naga/npm-count.git
+cd npm-count
+npm install
+
+npm test
+# or...
+DEBUG=on npm test # show uris
 ```
 
 License

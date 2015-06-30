@@ -5,8 +5,8 @@ moment= require 'moment'
 
 # Environment
 jasmine.DEFAULT_TIMEOUT_INTERVAL= 120000
-packages= require './fixtures/packages'# substack's package names
-user= require './fixtures/user'# 59naga's package count
+packages= require './fixtures/substack_packages'
+user= require './fixtures/59naga'
 
 # Specs
 describe 'npmCount',->
@@ -106,10 +106,16 @@ describe 'npmCount',->
           done()
 
     describe '.fetchPackages',->
-      it '59naga',(done)->
-        npmCount.fetchPackages '59naga'
+      it 'substack',(done)->
+        npmCount.fetchPackages 'substack'
+        .then (names)->
+          expect(names.length).toBeGreaterThan 500
+          done()
+
+      it 'substack(raw)',(done)->
+        npmCount.fetchPackages 'substack',false
         .then (packages)->
-          expect(packages.length).toBeGreaterThan 20
+          expect(packages.length).toBeGreaterThan 500
           done()
 
     describe '.last',->

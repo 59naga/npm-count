@@ -54,29 +54,41 @@ class NpmCount
     .then (names)=>
       @fetchDownloads names,period
 
-  fetchPackages: (owner)->
+  fetchPackages: (owner,flatten=yes)->
     url= @api.fetchPackages
 
-    new Promise (resolve,reject)=>
-      names= []
+    # 1000 packages. never seen 700 or more
+    promises=
+      for i in [0...10]
+        do (i)->
+          uri= util.format url,owner,i
+          console.log uri if @debug
+          new Promise (resolve,reject)->
+            request uri,(error,response)->
+              return reject error if error
 
-      process.nextTick ->
-        nextOffset 0
-      nextOffset= (i)=>
-        uri= util.format url,owner,i
-        console.log uri if @debug
-        request uri,(error,response)->
-          return reject error if error
+              if response?.body and response.body[0] is '{'
+                result= JSON.parse response.body
 
-          if response?.body and response.body[0] is '{'
-            result= JSON.parse response.body
-            {items,hasMore}= result
-            delete response.body
+                # Tip: result has `.hasMore` if is continued
 
-            names.push item.name for item in items
-            return nextOffset i+1 if hasMore
+              resolve result
 
-          resolve names
+    Promise.all promises
+    .then (results)->
+      packages= []
+
+      if flatten
+        for result in results
+          for item in result?.items or []
+            packages.push item.name
+
+      else
+        for result in results
+          for item in result?.items or []
+            packages.push item
+
+      packages
 
   # Get downloads of range via Npm downloads api
   # Using bulk queries
@@ -97,39 +109,44 @@ class NpmCount
       total.days= new Array(days.length)
       total.packages= {}
 
-      new Promise (resolve,reject)=>
-        step= 100
+      # Avoid the "Error 756 Too long request string"
+      step= 100
+      page= Math.ceil names.length/step
+      pages=
+        for i in [0...page]
+          names.slice i*step,i*step+step
 
-        # Avoid the "Error 756 Too long request string"
-        process.nextTick ->
-          nextOffset 0
-        nextOffset= (i)=>
-          bulkNames= names.slice i*step,i*step+step
-          bulk= (querystring.escape name for name in bulkNames).join ','
+      promises=
+        for names in pages
+          do (names)=>
+            new Promise (resolve,reject)=>
+              uri= util.format url,period,querystring.escape names.join(',')
+              console.log uri if @debug
+              request uri,(error,response)->
+                return reject error if error
 
-          if bulk isnt ''
-            uri= util.format url,period,bulk
-            console.log uri if @debug
-            request uri,(error,response)->
-              return reject error if error
+                body= response?.body or '{}'
+                result= JSON.parse body
+                
+                return reject result.error if result.error?
 
-              body= response?.body or '{}'
-              results= JSON.parse body
-              delete response.body
-              return reject results.error if results.error?
+                # single -> multi
+                # {packages:"name",downloads:[...]}
+                # -> {name:{downloads:[...]}}
+                if result.package
+                  tmp= {}
+                  tmp[result.package]= result
+                  result= tmp
 
-              if results.package
-                tmp= {}
-                tmp[results.package]= results
-                results= tmp
+                for name in names
+                  stat= zerofill total,name,days,result[name]?.downloads
+                  packages[name]= stat
 
-              for name in bulk.split(',')
-                stat= zerofill total,name,days,results[name]?.downloads
-                packages[name]= stat
+                resolve()
 
-              nextOffset i+1
-          else
-            resolve {days,packages,total}
+      Promise.all promises
+      .then ->
+        {days,packages,total}
 
   fetchDays: (period='last-day')->
     period= '2012-10-22:'+moment.utc().add(-1,'days').format format if period is 'all'
