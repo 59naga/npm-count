@@ -30,7 +30,7 @@ $ bower install npm-count --save
 
 ## `.fetchDownloads`(names,period='last-day') -> Promise(packages)
 
-Fetch the download count and total of period of specified package names.
+Fetch the download counts of package names in period.
 
 ```js
 // Fetch the browserify stats in last-day
@@ -86,7 +86,8 @@ npmCount.fetchDownloads('browserify,glob')
 });
 ```
 
-Can use the following as an `period`:
+Possible values for `period` are as following:
+
 * last-day
 * last-month
 * last-week
@@ -95,7 +96,7 @@ Can use the following as an `period`:
 
 > https://github.com/npm/download-counts#examples-1
 
-Can fetch the `all` download count of specified packages to last-day from 2012-10-22 using __all__ of `period`.
+Specify the `all` if fetch the download conts in last-day from 2012-10-22.
 
 ```js
 npmCount.fetchDownloads('browserify','all')
@@ -122,15 +123,16 @@ npmCount.fetchDownloads('browserify','all')
 });
 ```
 
-> [The past than 2012-10-22 is nothing](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
+> [Nothing the past than 2012-10-22](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
 
 # Node.js API
 
 ## `.fetch`(author,period='last-day') -> Promise(packages)
 
-Fetch the download count and total of period of specified author.
+Fetch the download counts of author in period.
 
 Works only in Node.js:
+
 * Using the informal API
 * URL not have `Access-Control-Allow-Origin`
 
@@ -166,7 +168,7 @@ npmCount.fetch('substack')
 });
 ```
 
-## `.fetchPackages`(author,flatten=true) -> Promise(names or details)
+## `.fetchPackages`(author,flatten=true) -> Promise(names or informations)
 
 Fetch the package informations using [informal API](https://www.npmjs.com/profile/substack/packages?offset=0).
 
@@ -178,8 +180,8 @@ npmCount.fetchPackages('substack')
 // ["accountdown",(...660packages...),"zygote"]
 
 npmCount.fetchPackages('substack',false)
-.then(function(details){
-  console.log(details);
+.then(function(informations){
+  console.log(informations);
 });
 // [
 //   {
