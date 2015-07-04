@@ -313,42 +313,6 @@ npmCount.fetchPackages('substack',false)
 // ]
 ```
 
-# Calculate
-
-can be calculated using the [lodash](https://npmjs.org/package/lodash).
-
-```bash
-$ npm install lodash --save
-```
-
-```js
-var sum= function(packages){
-  return _.chain(packages)
-  .pluck('downloads')
-  .flatten(true)
-  .sum(function(pkg){
-    return pkg.downloads;
-  })
-  .value()
-}
-
-npmCount.fetch('isaacs').then(function(packages){
-  console.log(sum(packages));// 5447876
-});
-
-npmCount.fetch('isaacs','last-week').then(function(packages){
-  console.log(sum(packages));// 43061905
-});
-
-npmCount.fetch('isaacs','last-month').then(function(packages){
-  console.log(sum(packages));// 193759014
-});
-
-npmCount.fetch('isaacs','all').then(function(packages){
-  console.log(sum(packages));// 1472449362
-});
-```
-
 # TEST & DEBUG
 ```bash
 git clone https://github.com/59naga/npm-count.git
