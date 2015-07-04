@@ -2,7 +2,7 @@
 
 [![Sauce Test Status][sauce-image]][sauce]
 
-Fetch the npm stats for easy calculation using [download-counts](https://github.com/npm/download-counts).
+Fetch the [npm/download-counts](https://github.com/npm/download-counts#data-source).
 
 ## Installation
 
@@ -28,23 +28,61 @@ $ bower install npm-count --save
 
 # Cross-platform API
 
-## `.fetchDownloads`(packages,period='last-day') -> Promise(downloads)
+## `.fetchDownloads`(names,period='last-day') -> Promise(packages)
 
-Fetch the download count and total of period of specified packages.
+Fetch the download count and total of period of specified package names.
 
 ```js
+// Fetch the browserify stats in last-day
 npmCount.fetchDownloads('browserify')
-.then(function(downloads){
-  console.log(downloads);
+.then(function(packages){
+  console.log(packages);
+  // {
+  //   "browserify": {
+  //     "downloads": [
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 63224
+  //       }
+  //     ],
+  //     "start": "2015-07-03",
+  //     "end": "2015-07-03",
+  //     "package": "browserify"
+  //   }
+  // }
 });
 ```
 
-Can use array or csv at `packages`
+Can use array or csv at `names`
 
 ```js
 npmCount.fetchDownloads('browserify,glob')
-.then(function(count){
-  console.log(count);
+.then(function(packages){
+  console.log(packages);
+  // {
+  //   "browserify": {
+  //     "downloads": [
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 63224
+  //       }
+  //     ],
+  //     "start": "2015-07-03",
+  //     "end": "2015-07-03",
+  //     "package": "browserify"
+  //   },
+  //   "glob": {
+  //     "downloads": [
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 461197
+  //       }
+  //     ],
+  //     "start": "2015-07-03",
+  //     "end": "2015-07-03",
+  //     "package": "glob"
+  //   }
+  // }
 });
 ```
 
@@ -61,8 +99,26 @@ Can fetch the `all` download count of specified packages to last-day from 2012-1
 
 ```js
 npmCount.fetchDownloads('browserify','all')
-.then(function(count){
-  console.log(count);
+.then(function(packages){
+  console.log(packages);
+  // {
+  //   "browserify": {
+  //     "downloads": [
+  //       {
+  //         "day": "2012-10-22",
+  //         "downloads": 40
+  //       },
+  //       // (...903 days...)
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 63224
+  //       }
+  //     ],
+  //     "start": "2012-10-22",
+  //     "end": "2015-07-03",
+  //     "package": "browserify"
+  //   }
+  // }
 });
 ```
 
@@ -70,9 +126,9 @@ npmCount.fetchDownloads('browserify','all')
 
 # Node.js API
 
-## `.fetch`(owner,period='last-day') -> Promise(count)
+## `.fetch`(author,period='last-day') -> Promise(packages)
 
-Fetch the download count and total of period of specified owner.
+Fetch the download count and total of period of specified author.
 
 Works only in Node.js:
 * Using the informal API
@@ -80,12 +136,37 @@ Works only in Node.js:
 
 ```js
 npmCount.fetch('substack')
-.then(function(count){
-  console.log(count);
+.then(function(packages){
+  console.log(packages);
+  // {
+  //   "charm": {
+  //     "downloads": [
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 12168
+  //       }
+  //     ],
+  //     "start": "2015-07-03",
+  //     "end": "2015-07-03",
+  //     "package": "charm"
+  //   },
+  //   // (...442 packages...)
+  //   "webglew": {
+  //     "downloads": [
+  //       {
+  //         "day": "2015-07-03",
+  //         "downloads": 40
+  //       }
+  //     ],
+  //     "start": "2015-07-03",
+  //     "end": "2015-07-03",
+  //     "package": "webglew"
+  //   }
+  // }
 });
 ```
 
-## `.fetchPackages`(owner,flatten=true) -> Promise(packages)
+## `.fetchPackages`(author,flatten=true) -> Promise(names or details)
 
 Fetch the package informations using [informal API](https://www.npmjs.com/profile/substack/packages?offset=0).
 
@@ -94,36 +175,73 @@ npmCount.fetchPackages('substack')
 .then(function(names){
   console.log(names);
 });
-// ["accountdown",...,"zygote"]
+// ["accountdown",(...660packages...),"zygote"]
 
 npmCount.fetchPackages('substack',false)
-.then(function(packages){
-  console.log(packages);
+.then(function(details){
+  console.log(details);
 });
 // [
 //   {
+//     "dist-tags": {},
+//     "homepage": "https://github.com/substack/accountdown",
+//     "version": "4.1.0",
+//     "description": "persistent accounts backed to leveldb",
 //     "bugs": {
 //       "email": null,
 //       "url": "https://github.com/substack/accountdown/issues"
 //     },
-//     "versions": {},
-//     "version": "4.1.0",
-//     "homepage": "https://github.com/substack/accountdown",
-//     "dist-tags": {},
 //     "access": "public",
-//     "description": "persistent accounts backed to leveldb",
+//     "versions": {},
 //     "name": "accountdown"
 //   },
+//   // (... 660 packages ...)
 //   {
-//     "name": "zygote",
-//     "access": "public",
-//     "version": "0.0.1",
-//     "versions": {},
-//     "homepage": null,
 //     "dist-tags": {},
-//     "description": "cellular differentiation for seaport clusters"
+//     "homepage": null,
+//     "version": "0.0.1",
+//     "description": "cellular differentiation for seaport clusters",
+//     "access": "public",
+//     "versions": {},
+//     "name": "zygote"
 //   }
 // ]
+```
+
+# Calculate
+
+can be calculated using the [lodash](https://npmjs.org/package/lodash).
+
+```bash
+$ npm install lodash --save
+```
+
+```js
+var sum= function(packages){
+  return _.chain(packages)
+  .pluck('downloads')
+  .flatten(true)
+  .sum(function(pkg){
+    return pkg.downloads;
+  })
+  .value()
+}
+
+npmCount.fetch('isaacs').then(function(packages){
+  console.log(sum(packages));// 5447876
+});
+
+npmCount.fetch('isaacs','last-week').then(function(packages){
+  console.log(sum(packages));// 43061905
+});
+
+npmCount.fetch('isaacs','last-month').then(function(packages){
+  console.log(sum(packages));// 193759014
+});
+
+npmCount.fetch('isaacs','all').then(function(packages){
+  console.log(sum(packages));// 1472449362
+});
 ```
 
 # TEST & DEBUG
@@ -132,9 +250,14 @@ git clone https://github.com/59naga/npm-count.git
 cd npm-count
 npm install
 
+# nodejs
 npm test
-# or...
-DEBUG=on npm test # show uris
+
+# browser
+npm run localhost
+
+# cloud-test(requirement SAUCE_USERNAME and SAUCE_ACCESS_KEY in env)
+npm test-cloud
 ```
 
 License

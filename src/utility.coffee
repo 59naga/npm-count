@@ -4,7 +4,6 @@ request= unless window? then require 'request' else require 'xhr'
 moment= require 'moment'
 
 util= require 'util'
-querystring= require 'querystring'
 
 # Public
 class Utility
@@ -54,7 +53,7 @@ class Utility
     
     for i in [0...page]
       bulk= (names.slice i*step,i*step+step).join(',')
-      safeBulk= querystring.escape bulk
+      safeBulk= encodeURIComponent bulk
       
       util.format url,period,safeBulk
 
