@@ -1,8 +1,8 @@
 # Dependencies
-Utility= (require './utility').Utility
+Calculator= (require './calculator').Calculator
 
 # Public
-class NpmCount extends Utility
+class NpmCount extends Calculator
   fetch: (author,period='last-day')->
     @fetchPackages author
     .then (names)=>

@@ -125,6 +125,109 @@ npmCount.fetchDownloads('browserify','all')
 
 > [Nothing the past than 2012-10-22](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
 
+## `.calculate`(packages)
+
+Calculate the total and average in periods(all, weekly, monthly, yearly) and each package(in periods).
+
+```js
+
+npmCount.fetchDownloads('abbrev,...','all')
+.then(function(packages){
+  npmCount.calculate(packages)
+});
+// {
+//   "name": "2012-10-22:2015-07-03",
+//   "total": 1472449362,
+//   "average": 1494872.4487309644,
+//   "weekly": [
+//     {
+//       "start": "2015-06-27",
+//       "end": "2015-07-03",
+//       "total": 43061905,
+//       "average": 6151700.714285715,
+//       "column": [
+//         2882864,
+//         2708772,
+//         7524183,
+//         8558533,
+//         8155635,
+//         7784042,
+//         5447876
+//       ]
+//     },
+//     //{more 140 weeks...},
+//   ],
+//   "monthly": [
+//     {
+//       "start": "2015-06-04",
+//       "end": "2015-07-03",
+//       "total": 193759014,
+//       "average": 6458633.8,
+//       "column": [
+//         //(30 days...)
+//       ]
+//     }
+//     //(more months...)
+//   ],
+//   "yearly": [
+//     {
+//       "start": "2014-07-04",
+//       "end": "2015-07-03",
+//       "total": 1242984915,
+//       "average": 3405438.1232876712,
+//       "column": [
+//         //(365 days...)
+//       ]
+//     }
+//     //(more years...)
+//   ],
+//   "packages": [
+//     {
+//       "name": "abbrev",
+//       "total": 34287587,
+//       "average": 34809.732994923856,
+//       "weekly": [
+//         {
+//           "start": "2015-06-27",
+//           "end": "2015-07-03",
+//           "total": 932771,
+//           "average": 133253,
+//           "column": [
+//             //(7 days...)
+//           ]
+//         }
+//         //(more weeks...)
+//       ],
+//       "monthly": [
+//         {
+//           "start": "2015-06-04",
+//           "end": "2015-07-03",
+//           "total": 4426192,
+//           "average": 147539.73333333334,
+//           "column": [
+//             //(30 days...)
+//           ]
+//         }
+//         //(more months...)
+//       ],
+//       "yearly": [
+//         {
+//           "start": "2014-07-04",
+//           "end": "2015-07-03",
+//           "total": 26857890,
+//           "average": 73583.2602739726,
+//           "column": [
+//             //(365 days...)
+//           ]
+//         }
+//         //(more years...)
+//       ],
+//     },
+//     //(many many packages...)
+//   ],
+// }
+```
+
 # Node.js API
 
 ## `.fetch`(author,period='last-day') -> Promise(packages)

@@ -4,9 +4,6 @@ moment= require 'moment'
 
 names= require './fixtures/59naga'
 
-# Environment
-jasmine.DEFAULT_TIMEOUT_INTERVAL= 15000
-
 # Specs
 describe 'npmCount',->
   describe '.fetchDownloads',->

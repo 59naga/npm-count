@@ -36,6 +36,8 @@ describe 'utility',->
         expect(query).toBe prefix+encodeURIComponent names.slice(i*100,i*100+100).join(',')
 
   describe '.request',->
+    return if window?
+    
     it 'http://example.com/',(done)->
       utility.request 'http://example.com/'
       .then (bodies)->
