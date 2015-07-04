@@ -67,7 +67,7 @@ class Utility
     
     util.format url,period
 
-  # Fetch the jsons
+  # Fetch the bodies
   request: (uris)->
     uris= [uris] unless uris instanceof Array
 
@@ -82,30 +82,36 @@ class Utility
 
     Promise.all promises
 
-  # Parse the jsons to names
+  # Parse the bodies to names
   # eg:
-  # [
+  # utility.getPackages([
   #   '{"items":[{name:"foo"},{name:"bar"}]}   ',
   #    undefined,
   #   '   {"items":[{name:"baz"}]}'
-  # ]
+  #   '<html>'
+  # ])
   # -> ["foo","bar","baz"]
-  getNames: (bodies)->
-    names= []
+  getPackages: (bodies,flatten=yes)->
+    packages= []
 
     for body in bodies
       continue unless body?.trim
       continue if body[0] is '<'
+
       json= JSON.parse body
-      names.push item.name for item in json.items
+      for item in json.items
+        if flatten
+          packages.push item.name
+        else
+          packages.push item
 
-    names
+    packages
 
-  # Parse the jsons to downloads
+  # Parse the bodies to downloads
   # eg:
   # ['{"foo":1}   ','   {"bar":2}',undefined,'{"baz":{"beep":3}}','<html>']
   # -> '{"foo":1,"bar":2,"baz":{"beep":3}}'
-  flatten: (bodies,raw=no)->
+  flatten: (bodies)->
     jsons= []
 
     for body in bodies
@@ -126,11 +132,7 @@ class Utility
 
       jsons.push json
 
-    packages= JSON.parse jsons.join('').replace /\}\{/g,','
-    unless raw
-      delete packages.start
-      delete packages.end
-    packages
+    JSON.parse jsons.join('').replace /\}\{/g,','
 
   # eg:
   # '2012-10-22','2015-07-03'
@@ -148,45 +150,5 @@ class Utility
       momentDay.add 1,'days'
 
     days
-
-  calculate: (names,days,downloads)->
-    packages= {}
-    total=
-      packages: {}
-      days: []
-    for name in names
-      stat= @zerofill total,name,days,downloads[name]?.downloads
-      packages[name]= stat
-
-    {days,packages,total}
-
-  zerofill: (total,name,days,stats=[])->
-    downloads= []
-
-    # Example:
-    #   zerofill (
-    #     ["2015-01-01","2015-01-02","2015-01-03"],
-    #     [
-    #        {day:"2015-01-03",downloads:1}
-    #     ]
-    #   )
-    #   -> [0,0,1]
-    for day,i in days
-      count= 0
-      for stat in stats
-        break if stat.day > day
-
-        if stat.day is day
-          count= stat.downloads
-          break
-
-      downloads.push count
-
-      total.days[i]?= 0
-      total.days[i]+= count
-      total.packages[name]?= 0
-      total.packages[name]+= count
-
-    downloads
-
+  
 module.exports.Utility= Utility

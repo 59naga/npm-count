@@ -55,16 +55,21 @@ describe 'utility',->
         expect(bodies[1]).toBeTruthy()
         done()
 
-  describe '.getNames',->
-    it 'convert bodies to package names',->
-      fixture= [
-        '{"items":[{"name":"foo"},{"name":"bar"}]}   ',
-         undefined,
-        '   {"items":[{"name":"baz"}]}'
-      ]
+  describe '.getPackages',->
+    fixture= [
+      '{"items":[{"name":"foo"},{"name":"bar"}]}   ',
+       undefined,
+      '   {"items":[{"name":"baz"}]}'
+      '<html>'
+    ]
 
-      string= utility.getNames fixture
-      expect(string).toEqual ['foo','bar','baz']
+    it 'convert bodies to package names',->
+      names= utility.getPackages fixture
+      expect(names).toEqual ['foo','bar','baz']
+
+    it 'convert bodies to packages',->
+      packages= utility.getPackages fixture,false
+      expect(packages).toEqual [{name:'foo'},{name:'bar'},{name:'baz'}]
   
   describe '.flatten',->
     it 'convert bodies to json',->
@@ -87,7 +92,5 @@ describe 'utility',->
       string= utility.flatten fixture
       expect(string).toEqual {'browserify':{'downloads':[{'day':'2015-07-02','downloads':46983}],'start':'2015-07-02','end':'2015-07-02','package':'browserify'}}
 
-  # TODO
-  xdescribe '.getDays'
-  xdescribe '.calculate'
-  xdescribe '.zerofill'
+  describe '.getDays',->
+    it 'TODO'

@@ -2,40 +2,44 @@
 npmCount= require '../src'
 moment= require 'moment'
 
-names= require './fixtures/isaacs'
+fs= require 'fs'
+
+names= require './fixtures/59naga'
 
 # Environment
 jasmine.DEFAULT_TIMEOUT_INTERVAL= 15000
 
 # Specs
-describe 'npmCount',->
-  describeFuture= unless window? then describe else xdescribe
+describe 'npmCount(for nodejs)',->
+  return if window?
 
-  describeFuture '.fetch',->
+  describe '.fetch',->
     it '59naga',(done)->
       npmCount.fetch '59naga','all'
-      .then (count)->
-
-        expect(count)
+      .then (downloads)->
 
         done()
 
-  describeFuture '.fetchPackages',->
+  describe '.fetchPackages',->
     it '59naga',(done)->
       npmCount.fetchPackages '59naga'
       .then (pkgs)->
         expect(pkgs.length).toBeGreaterThan 25
+
         done()
 
+describe 'npmCount',->
   describe '.fetchDownloads',->
-    it 'isaacs\'s packages',(done)->
-      npmCount.fetchDownloads names
-      .then (count)->
+    it '59naga\'s packages',(done)->
+      npmCount.fetchDownloads names,'last-month'
+      .then (downloads)->
+        expect(downloads[name]).toBeTruthy() for name in names
+
         done()
 
     it 'single',(done)->
       npmCount.fetchDownloads 'is_js'
-      .then (count)->
+      .then (downloads)->
         done()
 
   describe '.fetchDays',->
@@ -65,23 +69,3 @@ describe 'npmCount',->
       .then (days)->
         expect(days.length).toBe 30
         done()
-
-  describe '.last',->
-    it 'Compare to last-day of npm/download-counts',(done)->
-      fixture=
-        days: [
-         '2012-10-22',
-         '2015-06-23'
-       ]
-
-      npmCount.fetchDays()
-      .then (days)->
-        expect(days[0]).toBeGreaterThan npmCount.last fixture
-
-        done()
-    
-    it 'Otherwise',->
-      expect(npmCount.last null).toBe undefined
-      expect(npmCount.last [null]).toBe undefined
-      expect(npmCount.last {days:[]}).toBe undefined
-      expect(npmCount.last {days:['foo','bar','baz']}).toBe 'baz'

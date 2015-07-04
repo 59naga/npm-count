@@ -28,33 +28,15 @@ $ bower install npm-count --save
 
 # Cross-platform API
 
-## `.fetchDownloads`(packages,period='last-day') -> Promise(count)
+## `.fetchDownloads`(packages,period='last-day') -> Promise(downloads)
 
 Fetch the download count and total of period of specified packages.
 
 ```js
 npmCount.fetchDownloads('browserify')
-.then(function(count){
-  console.log(count);
+.then(function(downloads){
+  console.log(downloads);
 });
-// {
-//   "days": [
-//     "2015-06-23"
-//   ],
-//   "packages": {
-//     "browserify": [
-//       54778
-//     ]
-//   },
-//   "total": {
-//     "days": [
-//       54778
-//     ],
-//     "packages": {
-//       "browserify": 54778
-//     }
-//   }
-// }
 ```
 
 Can use array or csv at `packages`
@@ -64,28 +46,6 @@ npmCount.fetchDownloads('browserify,glob')
 .then(function(count){
   console.log(count);
 });
-// {
-//   "days": [
-//     "2015-06-23"
-//   ],
-//   "packages": {
-//     "browserify": [
-//       54778
-//     ],
-//     "glob": [
-//       665597
-//     ]
-//   },
-//   "total": {
-//     "days": [
-//       720375
-//     ],
-//     "packages": {
-//       "browserify": 54778,
-//       "glob": 665597
-//     }
-//   }
-// }
 ```
 
 Can use the following as an `period`:
@@ -104,64 +64,9 @@ npmCount.fetchDownloads('browserify','all')
 .then(function(count){
   console.log(count);
 });
-// {
-//   "days": [
-//     "2012-10-22",
-//     ...
-//     "2015-06-23"
-//   ],
-//   "packages": {
-//     "browserify": [
-//       40,
-//       ...
-//       54778
-//     ]
-//   },
-//   "total": {
-//     "days": [
-//       40,
-//       ...
-//       54778
-//     ],
-//     "packages": {
-//       "browserify": 12991291
-//     }
-//   }
-// }
 ```
 
 > [The past than 2012-10-22 is nothing](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
-
-## `.last`(count) -> day
-
-Get the last day of `count`.
-
-```js
-var count= {
-   "days": [
-     "2012-10-22",
-     "2015-06-23"
-   ],
-   "packages": {
-     "browserify": [
-       40,
-       54778
-     ]
-   },
-   "total": {
-     "days": [
-       40,
-       54778
-     ],
-     "packages": {
-       "browserify": 12991291
-     }
-   }
- };
-
- npmCount.last(count);
- // -> "2015-06-23"
- ```
 
 # Node.js API
 
@@ -178,30 +83,6 @@ npmCount.fetch('substack')
 .then(function(count){
   console.log(count);
 });
-// {
-//   "days": [
-//     "2012-10-22",
-//     ...
-//     "2015-06-23"
-//   ],
-//   "packages": {
-//     "browserify": [...]
-//     ...
-//     "zygote": [...]
-//   },
-//   "total": {
-//     "days": [
-//       ...
-//       ...
-//       ...
-//     ],
-//     "packages": {
-//       "browserify": ...
-//       ...
-//       "zygote": ...
-//     }
-//   }
-// }
 ```
 
 ## `.fetchPackages`(owner,flatten=true) -> Promise(packages)
