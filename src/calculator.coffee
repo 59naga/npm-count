@@ -12,8 +12,6 @@ backSlice= (stats,i,volume,label=[])->
     [start,...,end]= label.slice(-i*volume,(-i+1)*volume)
     column= stats.slice(-i*volume,(-i+1)*volume)
 
-  # console.log start,end,column.length
-
   {start,end,column}
 
 # Public
@@ -44,7 +42,8 @@ class Calculator extends Utility
   # ->
   #
   # {
-  #   "name": "2012-10-22:2015-07-03",
+  #   "start": "2012-10-22",
+  #   "end": "2015-07-03",
   #   "total": 1472449362,
   #   "average": 1494872.4487309644,
   #   "weekly": [
@@ -157,10 +156,10 @@ class Calculator extends Utility
         # TODO division the total in current day from published(approximation) day
 
         # Expose
-        pkg=
-          {name:pkg.name,total,average}
-
-        pkg[@periods[i].name]= period for period,i in periods
+        pkg= {name:pkg.name,total,average}
+        for period,i in periods
+          periodName= @periods[i].name
+          pkg[periodName]= period
         pkg
 
     periods=
@@ -189,13 +188,12 @@ class Calculator extends Utility
       .value()
     average= total/(normalized.days.length)
 
-    name= normalized.days.slice(0,1)+':'+normalized.days.slice(-1)
+    start= normalized.days.slice(0,1).join()
+    end= normalized.days.slice(-1).join()
 
-    calculated=
-      {name,total,average}
+    calculated= {start,end,total,average}
     calculated[@periods[i].name]= period for period,i in periods
     calculated.packages= packages
-
     calculated
 
   # eg:

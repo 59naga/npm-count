@@ -13,7 +13,7 @@ describe 'calculator',->
   calculated= calculator.calculate pkgs
 
   grand= {}
-  grand.total= util.grandTotal pkgs
+  grand.total= util.total pkgs
   grand.average= grand.total / normalized.days.length
 
   describe '.normalize',->
@@ -53,7 +53,7 @@ describe 'calculator',->
 
             {start,end}= util.getIndex normalized,period
             for pkg in normalized.packages
-              column= util.getColumn calculated,periodName,periodIndex,pkg.name
+              column= util.get(calculated,periodName,periodIndex,pkg.name).column
 
               expect(pkg.stats.slice start,end).toEqual column
 

@@ -136,7 +136,8 @@ npmCount.fetchDownloads('abbrev,...','all')
   npmCount.calculate(packages)
 });
 // {
-//   "name": "2012-10-22:2015-07-03",
+//   "start": "2012-10-22",
+//   "end": "2015-07-03",
 //   "total": 1472449362,
 //   "average": 1494872.4487309644,
 //   "weekly": [
