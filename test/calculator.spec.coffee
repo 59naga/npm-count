@@ -1,19 +1,17 @@
 # Dependencies
 calculator= require '../src/calculator'
 
-fs= require 'fs'
-
 # Fixtures
-pkgs= require './fixtures/pkgs'
+fixture= require './fixtures/pkgs'
 util= require './util'
 
 # Specs
 describe 'calculator',->
-  normalized= calculator.normalize pkgs
-  calculated= calculator.calculate pkgs
+  normalized= calculator.normalize fixture
+  calculated= calculator.calculate normalized
 
   grand= {}
-  grand.total= util.total pkgs
+  grand.total= util.total fixture
   grand.average= grand.total / normalized.days.length
 
   describe '.normalize',->

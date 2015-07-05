@@ -23,114 +23,111 @@ class Calculator extends Utility
   ]
 
   # eg.
-  # calc({
-  #   "charm": {
-  #     "downloads": [
-  #       {
-  #         "day": "2015-07-03",
-  #         "downloads": 12168
-  #       }
-  #       # (more 984 days...)
-  #     ],
-  #     "start": "2015-07-03",
+  #   npmCount.calculate({
+  #     "charm": {
+  #       "downloads": [
+  #         {
+  #           "day": "2015-07-03",
+  #           "downloads": 12168
+  #         }
+  #         # (more 984 days...)
+  #       ],
+  #       "start": "2015-07-03",
+  #       "end": "2015-07-03",
+  #       "package": "charm"
+  #     },
+  #     # (more 443 packages...)
+  #   })
+  #
+  #   ->
+  #
+  #   {
+  #     "start": "2012-10-22",
   #     "end": "2015-07-03",
-  #     "package": "charm"
-  #   },
-  #   # (more 443 packages...)
-  # })
-  #
-  # ->
-  #
-  # {
-  #   "start": "2012-10-22",
-  #   "end": "2015-07-03",
-  #   "total": 1472449362,
-  #   "average": 1494872.4487309644,
-  #   "weekly": [
-  #     {
-  #       "start": "2015-06-27",
-  #       "end": "2015-07-03",
-  #       "total": 43061905,
-  #       "average": 6151700.714285715,
-  #       "column": [
-  #         #(7 days...)
-  #       ]
-  #     },
-  #     #{more 140 weeks...},
-  #   ],
-  #   "monthly": [
-  #     {
-  #       "start": "2015-06-04",
-  #       "end": "2015-07-03",
-  #       "total": 193759014,
-  #       "average": 6458633.8,
-  #       "column": [
-  #         #(30 days...)
-  #       ]
-  #     }
-  #     #(more months...)
-  #   ],
-  #   "yearly": [
-  #     {
-  #       "start": "2014-07-04",
-  #       "end": "2015-07-03",
-  #       "total": 1242984915,
-  #       "average": 3405438.1232876712,
-  #       "column": [
-  #         #(365 days...)
-  #       ]
-  #     }
-  #     #(more years...)
-  #   ],
-  #   "packages": [
-  #     {
-  #       "name": "abbrev",
-  #       "total": 34287587,
-  #       "average": 34809.732994923856,
-  #       "weekly": [
-  #         {
-  #           "start": "2015-06-27",
-  #           "end": "2015-07-03",
-  #           "total": 932771,
-  #           "average": 133253,
-  #           "column": [
-  #             #(7 days...)
-  #           ]
-  #         }
-  #         #(more weeks...)
-  #       ],
-  #       "monthly": [
-  #         {
-  #           "start": "2015-06-04",
-  #           "end": "2015-07-03",
-  #           "total": 4426192,
-  #           "average": 147539.73333333334,
-  #           "column": [
-  #             #(30 days...)
-  #           ]
-  #         }
-  #         #(more months...)
-  #       ],
-  #       "yearly": [
-  #         {
-  #           "start": "2014-07-04",
-  #           "end": "2015-07-03",
-  #           "total": 26857890,
-  #           "average": 73583.2602739726,
-  #           "column": [
-  #             #(365 days...)
-  #           ]
-  #         }
-  #         #(more years...)
-  #       ],
-  #     },
-  #     #(many many packages...)
-  #   ],
-  # }
-  
-  calculate: (pkgs,addLabel=no)->
-    normalized= @normalize pkgs
-
+  #     "total": 1472449362,
+  #     "average": 1494872.4487309644,
+  #     "weekly": [
+  #       {
+  #         "start": "2015-06-27",
+  #         "end": "2015-07-03",
+  #         "total": 43061905,
+  #         "average": 6151700.714285715,
+  #         "column": [
+  #           #(7 days...)
+  #         ]
+  #       },
+  #       #{more 140 weeks...},
+  #     ],
+  #     "monthly": [
+  #       {
+  #         "start": "2015-06-04",
+  #         "end": "2015-07-03",
+  #         "total": 193759014,
+  #         "average": 6458633.8,
+  #         "column": [
+  #           #(30 days...)
+  #         ]
+  #       }
+  #       #(more months...)
+  #     ],
+  #     "yearly": [
+  #       {
+  #         "start": "2014-07-04",
+  #         "end": "2015-07-03",
+  #         "total": 1242984915,
+  #         "average": 3405438.1232876712,
+  #         "column": [
+  #           #(365 days...)
+  #         ]
+  #       }
+  #       #(more years...)
+  #     ],
+  #     "packages": [
+  #       {
+  #         "name": "abbrev",
+  #         "total": 34287587,
+  #         "average": 34809.732994923856,
+  #         "weekly": [
+  #           {
+  #             "start": "2015-06-27",
+  #             "end": "2015-07-03",
+  #             "total": 932771,
+  #             "average": 133253,
+  #             "column": [
+  #               #(7 days...)
+  #             ]
+  #           }
+  #           #(more weeks...)
+  #         ],
+  #         "monthly": [
+  #           {
+  #             "start": "2015-06-04",
+  #             "end": "2015-07-03",
+  #             "total": 4426192,
+  #             "average": 147539.73333333334,
+  #             "column": [
+  #               #(30 days...)
+  #             ]
+  #           }
+  #           #(more months...)
+  #         ],
+  #         "yearly": [
+  #           {
+  #             "start": "2014-07-04",
+  #             "end": "2015-07-03",
+  #             "total": 26857890,
+  #             "average": 73583.2602739726,
+  #             "column": [
+  #               #(365 days...)
+  #             ]
+  #           }
+  #           #(more years...)
+  #         ],
+  #       },
+  #       #(many many packages...)
+  #     ],
+  #   }
+  calculate: (normalized)->
     packages=
       for pkg,pkgI in normalized.packages
         periods=
@@ -143,8 +140,6 @@ class Calculator extends Utility
 
               total= _.sum column,(stat)-> stat
               average= total/period.days
-
-              column.unshift pkg.name if addLabel
 
               {start,end,total,average,column}
 
@@ -176,8 +171,6 @@ class Calculator extends Utility
           total= _.sum column,(stat)-> stat
           average= total/(period.days)
 
-          column.unshift period.name if addLabel
-
           {start,end,total,average,column}
 
     total=
@@ -197,7 +190,7 @@ class Calculator extends Utility
     calculated
 
   # eg:
-  #   npmCountCalc.normalize ({
+  #   npmCount.normalize ({
   #     foo: {
   #       start: "2015-01-01",
   #       end: "2015-01-03",
@@ -208,19 +201,20 @@ class Calculator extends Utility
   #   })
   #
   #   ->
+  #
   #   {
   #     days: ['2015-01-01','2015-01-02','2015-01-03']
   #     packages: [
   #       {name: 'foo',stats: [0,0,1]},
   #     ]
   #   }
-  normalize: (pkgs)->
-    throw new Error 'invalid argument' unless pkgs.toString() is '[object Object]'
+  normalize: (packages)->
+    throw new Error 'invalid argument' unless packages.toString() is '[object Object]'
 
     days= null
 
     packages=
-      for name,pkg of pkgs
+      for name,pkg of packages
         {downloads,start,end}= pkg
         days?= @getDays start,end
 

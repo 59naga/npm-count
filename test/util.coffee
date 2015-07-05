@@ -29,8 +29,7 @@ module.exports=
     .sum (pkg)-> pkg.downloads
     .value()
 
-  # eg: TODO
-  #
+  # eg:
   # grandTotalNormalized({
   #   days: ['2015-01-01','2015-01-02','2015-01-03']
   #   packages: [

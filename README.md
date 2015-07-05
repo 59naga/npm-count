@@ -125,7 +125,36 @@ npmCount.fetchDownloads('browserify','all')
 
 > [Nothing the past than 2012-10-22](https://api.npmjs.org/downloads/range/2012-01-01:2012-10-21).
 
-## `.calculate`(packages)
+## `.normalize`(packages) -> normalized
+
+To convert as following:
+
+* start,end -> `days`
+* key -> packages[].name
+* downloads[].downloads -> packages[].`stats`[]
+
+`stats` are initialized to 0, with the same length as the `days`.
+
+```js
+var normalized= npmCount.normalize({
+  foo: {
+    start: "2015-01-01",
+    end: "2015-01-03",
+    downloads: [
+       {day:"2015-01-03",downloads:1}
+    ]
+  }
+});
+console.log(normalized);
+// {
+//   days: ['2015-01-01','2015-01-02','2015-01-03']
+//   packages: [
+//     {name: 'foo',stats: [0,0,1]},
+//   ]
+// }
+```
+
+## `.calculate`(normalized) -> calculated
 
 Calculate the total and average in periods(all, weekly, monthly, yearly) and each package(in periods).
 
@@ -133,7 +162,9 @@ Calculate the total and average in periods(all, weekly, monthly, yearly) and eac
 
 npmCount.fetchDownloads('abbrev,...','all')
 .then(function(packages){
-  npmCount.calculate(packages)
+  var normalized= npmCount.normalize(packages);
+  var calculated= npmCount.calculate(normalized);
+  console.log(calculated);
 });
 // {
 //   "start": "2012-10-22",
