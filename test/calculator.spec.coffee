@@ -24,6 +24,12 @@ describe 'calculator',->
         expect(days.length).toBe stats.length
         expect(NaN).not.toBe (stats.reduce (a,b)-> a+b)
 
+    it 'invalid argument',->
+      expect(-> calculator.normalize('invalid')).toThrow()
+      expect(-> calculator.normalize([])).toThrow()
+
+      expect(-> calculator.normalize({})).not.toThrow()
+
   describe '.calculate the packages of isaacs',->
     it 'total and average of all',->
       expect(grand.total).toBe calculated.total

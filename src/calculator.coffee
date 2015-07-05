@@ -1,5 +1,3 @@
-# coffeelint: disable=no_trailing_whitespace
-
 # Dependencies
 Utility= (require './utility').Utility
 
@@ -219,6 +217,8 @@ class Calculator extends Utility
   #     ]
   #   }
   normalize: (pkgs)->
+    throw new Error 'invalid argument' unless pkgs.toString() is '[object Object]'
+
     days= null
 
     packages=
