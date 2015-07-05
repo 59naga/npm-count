@@ -213,6 +213,14 @@ class Calculator extends Utility
 
     days= null
 
+    # Fixed https://github.com/59naga/npm-count/issues/3
+    if packages.package
+      {downloads,start,end}= packages
+
+      tmp= {}
+      tmp[packages.package]= {start,end,downloads}
+      packages= tmp
+
     packages=
       for name,pkg of packages
         {downloads,start,end}= pkg

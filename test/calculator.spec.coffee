@@ -6,6 +6,15 @@ fixture= require './fixtures/pkgs'
 util= require './util'
 
 # Specs
+describe 'issues:calculator',->
+  it '#3 calculated.weekly[0].total is 0',->
+    fixture= require './issues/003'
+    normalized= calculator.normalize fixture
+    calculated= calculator.calculate normalized
+
+    expect(util.commas calculated.total).toBe util.commas 8
+    expect(util.commas calculated.average).toBe util.commas 8/7
+
 describe 'calculator',->
   normalized= calculator.normalize fixture
   calculated= calculator.calculate normalized
