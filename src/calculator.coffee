@@ -17,9 +17,9 @@ backSlice= (stats,i,volume,label=[])->
 # Public
 class Calculator extends Utility
   periods: [
-    {name:'weekly',days:7}
-    {name:'monthly',days:30}
-    {name:'yearly',days:365}
+    {name:'weekly',day:7}
+    {name:'monthly',day:30}
+    {name:'yearly',day:365}
   ]
 
   # eg.
@@ -132,14 +132,14 @@ class Calculator extends Utility
       for pkg,pkgI in normalized.packages
         periods=
           for period in @periods
-            length= Math.ceil(pkg.stats.length / period.days)
+            length= Math.ceil(pkg.stats.length / period.day)
 
             i= 1
             while i <= length
-              {start,end,column}= backSlice pkg.stats,i++,period.days,normalized.days
+              {start,end,column}= backSlice pkg.stats,i++,period.day,normalized.days
 
               total= _.sum column,(stat)-> stat
-              average= total/period.days
+              average= total/column.length
 
               {start,end,total,average,column}
 
@@ -164,12 +164,15 @@ class Calculator extends Utility
 
           column=
             for cell,j in page.column
-              packages.reduce (left,right)->
-                left= left[period.name]?[i].column[j] ? left
-                left + right[period.name]?[i].column[j]
+              if packages.length <= 1
+                packages[0]?[period.name]?[i].column[j] ? 0
+              else
+                packages.reduce (left,right)->
+                  left= left[period.name]?[i].column[j] ? left
+                  left + right[period.name]?[i].column[j] ? 0
 
           total= _.sum column,(stat)-> stat
-          average= total/(period.days)
+          average= total/page.column.length
 
           {start,end,total,average,column}
 

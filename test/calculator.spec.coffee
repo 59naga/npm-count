@@ -6,15 +6,6 @@ fixture= require './fixtures/pkgs'
 util= require './util'
 
 # Specs
-describe 'issues:calculator',->
-  it '#3 calculated.weekly[0].total is 0',->
-    fixture= require './issues/003'
-    normalized= calculator.normalize fixture
-    calculated= calculator.calculate normalized
-
-    expect(util.commas calculated.total).toBe util.commas 8
-    expect(util.commas calculated.average).toBe util.commas 8/7
-
 describe 'calculator',->
   normalized= calculator.normalize fixture
   calculated= calculator.calculate normalized
@@ -66,7 +57,7 @@ describe 'calculator',->
 
             should= {}
             should.total= util.grandTotalNormalized normalized,start,end
-            should.average= should.total / day
+            should.average= should.total / (pkg.stats.slice start,end).length
 
             expect(should.total).toBe period.total
             expect(should.average).toBe period.average
@@ -96,6 +87,8 @@ describe 'calculator',->
             console.log '%s: sum:%s avg:%s',
               period.start+':'+period.end,period.total,period.average
 
+          pkg= null
+
           periodTotals=
             for pkg in normalized.packages
               if process.env.DEBUG
@@ -107,7 +100,7 @@ describe 'calculator',->
               should= {}
               should.column= pkg.stats.slice start,end
               should.total= util.totalNormalized normalized,pkg.name,start,end
-              should.average= should.total / day
+              should.average= should.total / should.column.length
 
               expect(should.column).toEqual column
               expect(util.commas should.total).toBe util.commas total
@@ -117,7 +110,17 @@ describe 'calculator',->
 
           # sum of the package's total of period equal to the grand total of period
           should= {}
+          should.column= pkg.stats.slice start,end
           should.total= periodTotals.reduce (a,b)-> a+b
-          should.average= should.total / day
+          should.average= should.total / should.column.length
           expect(util.commas should.total).toBe util.commas calculated[periodName][periodIndex].total
           expect(util.commas should.average).toBe util.commas calculated[periodName][periodIndex].average
+
+describe 'issues:calculator',->
+  it '#3 calculated.weekly[0].total is 0',->
+    fixture= require './issues/003'
+    normalized= calculator.normalize fixture
+    calculated= calculator.calculate normalized
+
+    expect(util.commas calculated.total).toBe util.commas 8
+    expect(util.commas calculated.average).toBe util.commas 8/7

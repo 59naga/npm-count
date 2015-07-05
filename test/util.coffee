@@ -10,6 +10,17 @@ module.exports=
     else
       number
 
+  # https://github.com/59naga/npm-count/issues/3
+  toPackages: (pkg)->
+    if pkg.package
+      {downloads,start,end}= pkg
+
+      packages= {}
+      packages[pkg.package]= {start,end,downloads}
+      packages
+    else
+      pkg
+
   # eg:
   # util.total ({
   #   foo: {
@@ -23,6 +34,8 @@ module.exports=
   #
   # -> 1
   total: (packages)->
+    packages= @toPackages packages
+
     _.chain packages
     .pluck 'downloads'
     .flatten(true)
