@@ -5,7 +5,6 @@
 
   "main": "lib/index.js",
   "browser": {
-    "./src": false,
     "request": false
   },
 

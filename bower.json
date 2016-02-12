@@ -4,7 +4,7 @@
 
   "opc-scripts": {
     "build": [
-      "browserify ./src/index.coffee",
+      "browserify ./src",
       "--transform coffeeify",
       "--standalone npmCount",
       "--extension .coffee",
