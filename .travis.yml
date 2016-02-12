@@ -12,7 +12,8 @@ branches:
 # Language options
 language: node_js
 node_js:
-  - '0.10'
+  - 4
+  - 5
 
 env:
   global:
@@ -30,6 +31,8 @@ deploy:
   email: i59naga@icloud.com
   api_key:
     secure: MZWBIfCOHXftz8dYmyXOcNW6P/g6GNclw9zisQIM3P9l48r5q6irK3VEGGnEecOlJmFrtw2LItckPpEyJe7KZHo/stZrBPBz4bmS7KdaLCiKkiJvWGCBHQBvE+DOeKVvAY3mLuFJN+Pcs2MIL0DlMC+/m3o7ASRsnEt84vAR9nZDujDKxt3i448CWIu2YR94B9zCYU+8h8ZSiCZ2t5zK7/XySWUAITowxIp9JrA7yXMQST4e/V2e5mHsqrdXxX7fpqEubFpqtgkKaFAbZGKU8FpKBypA4FP5GLxG67NFLiq2AjHp9XaR+vb15e7hthfw9F9IT0nWXJprvNPyA5XNcRqkZXCIZYCG7kkNMvbILKKkmFqmT23wKWXwXh1QLfjlpUgkKsBEMdluWBkQUPHp7S6B2zgqyeW1xdjoUFOfBpkCijWNAK1ulGWdrR1kMlxZjEf3TDtX8tmt9Al/JxVtM129QmiszWSw1+5dWZ9fbW3NJhpSQt81QfS3R1XithfYpamas2xIxmO54rpTiriqemlUnX4eID+AyGLHBog+T7LN1p0nyHIqkd5b/+mKDsjZ9JGO4cB+oQ76buXSrVyi3XW/+gn7D0jYNlflUltFQvFJD/RSW6MSVTFNu8ht+AurINKe5YrPOoIzEarp/4uW+fTOrNyaUxUu3ZsRWVnqgNU=
+  on:
+    node: 5
 
 # Cloud testing
 after_success:
