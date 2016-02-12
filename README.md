@@ -26,6 +26,15 @@ $ bower install npm-count --save
 </script>
 ```
 
+### Via rawgit.com(the simple way)
+
+```html
+<script src="https://cdn.rawgit.com/59naga/npm-count/v0.0.1/npm-count.min.js"></script>
+<script>
+  console.log(npmCount); //object
+</script>
+```
+
 # Cross-platform API
 
 ## `.fetchDownloads`(names,period='last-day') -> Promise(packages)
