@@ -31,9 +31,9 @@ describe 'utility',->
       prefix= 'https://api.npmjs.org/downloads/range/last-day/'
 
       expect(names.length).toBe 174
-      expect(queries.length).toBe 2
+      expect(queries.length).toBe Math.ceil(174 / 30)
       for query,i in queries
-        expect(query).toBe prefix+encodeURIComponent names.slice(i*100,i*100+100).join(',')
+        expect(query).toBe prefix+encodeURIComponent names.slice(i*30,i*30+30).join(',')
 
   describe '.request',->
     return if window?
