@@ -27,13 +27,14 @@ describe 'utility',->
 
     it 'convert 174 names to bulk queries',->
       queries= utility.getBulkURIs names,'last-day'
+      step= 10
 
       prefix= 'https://api.npmjs.org/downloads/range/last-day/'
 
       expect(names.length).toBe 174
-      expect(queries.length).toBe Math.ceil(174 / 30)
+      expect(queries.length).toBe Math.ceil(174 / step)
       for query,i in queries
-        expect(query).toBe prefix+encodeURIComponent names.slice(i*30,i*30+30).join(',')
+        expect(query).toBe prefix+encodeURIComponent names.slice(i*step,i*step+step).join(',')
 
   describe '.request',->
     return if window?

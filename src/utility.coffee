@@ -43,7 +43,7 @@ class Utility
   #      'https://api.npmjs.org/downloads/range/last-day/abbrev%2C(more 99)',
   #      'https://api.npmjs.org/downloads/range/last-day/npm-registry-readme-trim%2C(more 73)',
   #    ]
-  getBulkURIs: (names,period='last-day',step=30)->
+  getBulkURIs: (names,period='last-day',step=10)->
     url= @api.downloads
     names= names.split(',') if typeof names is 'string'
     if period is 'all'
