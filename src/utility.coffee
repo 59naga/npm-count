@@ -74,7 +74,7 @@ class Utility
       for uri in uris
         do (uri)->
           new Promise (resolve,reject)->
-            request uri,(error,response)->
+            request uri,{gzip:yes},(error,response)->
               return reject error if error
               return reject JSON.parse(response.body).error if response.body.slice(0,9) is '{"error":'
               return resolve response.body

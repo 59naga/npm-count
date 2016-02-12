@@ -1,9 +1,9 @@
 {
   "name": "npm-count",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fetch the npm/download-counts",
 
-  "main": "lib/index.js",
+  "main": "lib",
   "browser": {
     "request": false
   },

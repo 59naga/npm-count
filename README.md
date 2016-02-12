@@ -4,6 +4,8 @@
 
 Fetch the [npm/download-counts](https://github.com/npm/download-counts#data-source).
 
+[DEMO](https://github.com/59naga/npm.berabou.me)
+
 ## Installation
 
 ### Via npm
@@ -29,7 +31,7 @@ $ bower install npm-count --save
 ### Via rawgit.com(the simple way)
 
 ```html
-<script src="https://cdn.rawgit.com/59naga/npm-count/v0.0.1/npm-count.min.js"></script>
+<script src="https://cdn.rawgit.com/59naga/npm-count/v0.0.2/npm-count.min.js"></script>
 <script>
   console.log(npmCount); //object
 </script>
