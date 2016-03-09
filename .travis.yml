@@ -1,0 +1,38 @@
+notifications:
+  email: false
+
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - node_modules
+
+# Ignore version tags
+branches:
+  except:
+    - /^v[0-9]/
+
+env:
+  global:
+    # COVERALLS_REPO_TOKEN
+    - secure: DgIsePZMMmrJ1TtTm943TSjnAL205dGOztt1kR1Dj65XjcBGIfbWEXTpNALVliwqTMXHs9EGmz+KRZC5+OGDicjbV7Ykr1B94LLVwOjNW43YN89ok/2Xbk8LXRxtHi6yKxk/LLyHgAw5q8ktqdZ+kdwsli7kqRhdkZOh1j75DXYqj5mFpAXZyDWfWFJNY8Vdnv/Nf9q61pWh/OAnKsC4Dpgtrl2oWs8+kzgZZHhjzecN7TFUfkDA/OWEs+snsvOGts5Kzi3BedsIAp5Sv/aX8gM9iyar4QrO0o6UFICSONzUN/vbi4qiLaCyyPYEMv/c0anGFMcikam/k9DDgqnbXqmo2p8N4nq9zcRz4j9GmI0N6IOH0RRbJHGJNPd0IRJ0Ss1n8uYOj2ApbDi9PspHEmMUbxHEGgm7dF36i8gD/vUwfCiuuqhrkjJmw28ccrf2adBAt1fYrwiPaZKo4LSoAivew5y39rQVyoWwxQGu930dmDxTTQCwzlOVSkq85VVpYNhWBBSWcA4bOF0Ns7lLte1sIvgJAUPHdTCql58He6MrjOzJ1a4DSucvRCa3VdmdDSOmK/WUdxWEAz8WFsY0GB9QaFJD4yhpXmj8PA5Y8SSnBpyVtXUE+Jx/H90lS1tJb8jMCPorVHUDb1HbhSBh22YTjIIhLvkLdmooZcLOJrk=
+    # CODECLIMATE_REPO_TOKEN
+    - secure: fmkwfiGqJpyGCXXWY+bXAlvGQ/QD7eTkUAo1ch17O1FwDG4EaXRPOgOeNUERadUPhMlbmTjp032hpoXUd2km3F+rvu+25Z1hpdFNWVtQbDRlyrV3dcUH+tCFIuvL2V+e+AlZnN7EA6tI2AxJm7hCj+YKLPff3jznGAEmfcMjK4U9pi8Hv9hc2R2MrUKDtMKT07UAmvX3NzocXcVudWvQ0RVEBj/FkCbObgCJS+M5YOm5C9dDwpvNppydsl8YCWMdc8m+maJ6/S2FVMeo3aH2H51xPi2KTfEEknqYn0x0yJBCLuLgf1eMOWSMJxzzekUDGKTa9eX4gEtL49WWVL/0qIMmMwyYbauED7xyYKEK/LOydOZ8XTrJoeBawfB8G8p+xD0fRJlxO3XD+D0rT+NLIvL+cnw6erds4CCsWNbbC36CFwmHN4/XWZ6jlDy0BcspGNfwhQI94z/1nrYe+xUxB0fHDiNKcSEZdYPyK942G0BHumfdDXpzabJA7RYLQCXcZSQVoEgqWIvV3vGFUfuCt+cInPmVNGuWOkWijsWQvImpDpRQwUAzHAz8b+y3hh3G5xjYrrqSDukIfSzohkaC5SeVc3+HnHyqorvat/Q9ug1wYunmNcYiPK98XM59YtGnp9gQNAVhxBDpEN5WRAclnqyzo9t6i7ExquT3uSVQMl4=
+    # SAUCE_TOKENS
+    - secure: ZW8WTdVgeT6XJtfCCoE9q1yiDBwJBbLVauxzxK2qMlxWSwB5KDeMa/nXlsUBprqCE/uYXk28NQW0b6SUF0iFUL6Ig5zQ5s0MOx+wLoUU4VgMMkv1H98Z3XNoM77iDc+ZP3BO/XAU24UtPYwU2NaFjgFPbqnccYxHGPFLNUXTVzqpVE0KuCMRfGQCtwGZt2JKDmSuyZo5FdBztFZfoLOFu0hpW1nUR6dGaTVtGVrwWehuGr6NoNNPs/RbMTzEYqa1xKBMlflQQ0B0peCO5OrWQzzAWIjJIEBwjfCwgayRPWDVoQKwH2WDoTEfe6D/RD2IDcbAgfkd8egQ/VaF28u/FNZicgVnRbU5fnmDIZTqlSc34te9tfsw6F1M+PzMoq0iFeQVfB9TbCTHf8fBEsq9Dk82wzZrlKFVjXwTr598BF8vE3x5et9rYVXZXEge7jvCKfF3q4TKF2/Sa7AyDp3uXJIfM8C9//Rpq5irgGeXDQ+yO5dZhAsa6hHNVisjRVD1K71wRfVElyUKYvU8oYlRd2dripZtgfN55SS0oMvAoT0FbUt6QVL1//Csd0zVjgmopdbLybRPlHU+QlL/BZFbP5cKqwQgoIcMlhzu9+FiVcwu7cKTyqXlB6+/imFXojh6dJOhhDVga4ttrSjwvWI+Z+skss0d1b0oGn2Z0gLdJU4=
+    - secure: IQnriUwtzFsL9YVZ7MgOzgktuXBn4OzcdKXrO6qEPh4kNeDKieGOb1D6bQBXb3sl7PA5BaZeyzgDi8cwIL4/E1JzUw6m++L6tYvB0rX0lSx+Jzp0zYs3UfCyb5c/VxOPdyEgNGLOSMJl392soQY5kYmdqPm20pkcSFIZPklG/nvqOPHS77/25k4wLUw6M/pSrm03bral5ndflFvuyCzRHlJYwS7bSH2nmV9040NYa2OnK2sR+XwBKc6n1iQhGrUCKMpDoWOCOnjcyNmCUfmAlnbadjn2K1AN70UbTmuWQ4+EGbxTrMfcwIjx7DzGVJRCo9hsNN226UnKDITYzxZdT//EA2AU/OQ+M/MJztyWk3V68EtDIs+wybBKquTJ1KTavA7oJyfU9UDvkFWYtwJ34PCruOc+dEFt3cIxRKS1uPq8mdioegRGzRD63PgQmR1X8nYxMYvvb1w/tgu0X7NLR1PCLHjHI7s4dd4ug3FfjnqXx14GovTVgTGnKfmtM1bfzWWhGWpqUIcytnU2qThhcB/sjEadGM/EsmhnTqlTTonHQe0f3qwECqcWczlGFPVt0zCOpeamHWfhzvVD0F/NFBRHviKY/LLQn8wUdu1tTv/ovCzqiJvHsVDCStxAdQvuruskrtnuAqQ0OHSA6lX0/mGa3UhlI2umgsf93CS7Trs=
+
+# Language options
+language: node_js
+node_js:
+  - 4
+before_script:
+  - npm prune
+script:
+  - npm run cover
+
+# Npm publish options
+after_success:
+  - npm run build
+  - npm install semantic-release --global
+  - semantic-release pre && npm publish && semantic-release post
