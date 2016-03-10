@@ -41,7 +41,11 @@
     "type": "git",
     "url": "https://github.com/59naga/npm-count.git"
   },
-  "keywords": [],
+  "keywords": [
+    "npm",
+    "download-counts",
+    "trending"
+  ],
   "author": "59naga <i59naga@icloud.com> (http://berabou.me/)",
   "license": "MIT",
   "bugs": {
