@@ -48,7 +48,7 @@ npmCount.fetchLastDay()
         return -1;
       }
       if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return -1;
+        return 1;
       }
 
       return 0;
@@ -84,6 +84,8 @@ Development
 ```bash
 git clone https://github.com/59naga/npm-count.git
 cd npm-count
+
+npm install
 npm test
 ```
 
