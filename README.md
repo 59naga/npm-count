@@ -30,7 +30,7 @@ npm install npm-count
 ```
 
 ```js
-import npmCount from 'npm-count';
+const npmCount = require('npm-count');
 
 npmCount.fetchLastDay()
 .then((lastday) => (
@@ -38,19 +38,26 @@ npmCount.fetchLastDay()
   .then((trending) => {
     // sort by downloads desc, name asc
     trending.sort((a, b) => {
-      switch (true) {
-        case a.downloads > b.downloads: return -1;
-        case a.downloads < b.downloads: return 1;
-        default:
-          switch (true) {
-            case a.name > b.name: return -1;
-            case a.name < b.name: return 1;
-            default: return 0;
-          }
+      if (a.downloads > b.downloads) {
+        return -1;
       }
+      if (a.downloads < b.downloads) {
+        return 1;
+      }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return -1;
+      }
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1;
+      }
+
+      return 0;
     });
 
-    const top10 = trending.slice(0, 10).map(({ name, downloads }) => ({ name, downloads }));
+    const top10 = trending.slice(0, 10).map((publication) => ({
+      name: publication.name,
+      downloads: publication.downloads,
+    }));
     console.log(lastday, top10);
   })
 ));
