@@ -32,7 +32,13 @@ script:
   - npm run cover
 
 # Npm publish options
-after_success:
+before_deploy:
   - npm run build
-  - npm install semantic-release --global
-  - semantic-release pre && npm publish && semantic-release post
+deploy:
+  skip_cleanup: true # keep the devDependencies
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure: S4uaWWidiYuhNhld9j+J4ABywPvAW3jswbDgPAUf+Xnk7TAP5S61pIg7pJqONH6vTwQfPrfg8kRMK47WSVxiKoMgzVY71V3DnFGqxMiEYoAhx3uPW9zoEg1+UVrpCrqGg0snj1Q1cUTTYgRXcyba4r4PhY6r7joQSzw1eYSI2VzYUEqFZLeu6X9+nZmHby5/3MuTp1/4iQkip5+XYVFlY2uZkPiDSbgGKYCdV1H6pbPJqF+NeVZwXP72ggwUL+tMkNTolXXLuR1og6+Sre0t9udXVW3re2FEuE4/iIUqMW7PoVTXes/RnTWMpg7wFmqudCSlVqIvuw6Y3BfIUZBtK+t3x97un07/epXvhHC7V7XMAv0JOwSYfWT+9p4nKWI4QQpXNoC236gALKOK23dAh4r4ddIJxBxEiGFp/G0Vzx6/IjmsTy/d+6/9QN05jA8FpNEfB9QRJ1X4zyFj0SZXUTCsw+qVrDs21bBl0gqk36L+OJu1VqtcGuso5HW9rI6tAcYM2uMen6V3PxuQsyvHdmrYqb1LnWVCHYTs32n+wV+IovqqsFADxRlj6qRxdqNUiRq6MjTTuedGupaz/tOkS5rw3WDf/1TN6Vr0Ta9qlmAKE9aB5T5sBhEIESExGvin481MqEaLEFjLKK18jzIH6Ztp+vXmXMrEhYdIbqVVS2k=
+  on:
+    node: 4
