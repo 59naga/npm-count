@@ -1,5 +1,6 @@
 {
   "name": "npm-count",
+  "version": "0.1.0",
   "description": "a npm/download-counts wrapper",
   "main": "lib",
   "files": [
